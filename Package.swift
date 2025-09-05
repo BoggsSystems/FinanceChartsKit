@@ -5,20 +5,41 @@ import PackageDescription
 
 let package = Package(
     name: "FinanceChartsKit",
+    platforms: [
+        .tvOS(.v17),
+        .iOS(.v17),
+        .macOS(.v14)
+    ],
     products: [
-        // Products define the executables and libraries a package produces, making them visible to other packages.
         .library(
             name: "FinanceChartsKit",
             targets: ["FinanceChartsKit"]),
+        .executable(
+            name: "AppDemo",
+            targets: ["AppDemo"])
     ],
+    dependencies: [],
     targets: [
-        // Targets are the basic building blocks of a package, defining a module or a test suite.
-        // Targets can depend on other targets in this package and products from dependencies.
         .target(
-            name: "FinanceChartsKit"),
+            name: "FinanceChartsKit",
+            dependencies: [],
+            resources: [
+                .process("Resources")
+            ]
+        ),
+        .executableTarget(
+            name: "AppDemo",
+            dependencies: ["FinanceChartsKit"],
+            resources: [
+                .process("Resources")
+            ]
+        ),
         .testTarget(
             name: "FinanceChartsKitTests",
-            dependencies: ["FinanceChartsKit"]
+            dependencies: ["FinanceChartsKit"],
+            resources: [
+                .process("Resources")
+            ]
         ),
     ]
 )
